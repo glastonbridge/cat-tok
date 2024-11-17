@@ -12,15 +12,23 @@ export interface CatDatum {
 
 export type CatData = CatDatum[];
 
-const catEndpoint = (path: string) => fetch(
+const catEndpoint = (path: string, options = {}) => fetch(
   `${API_HOST}/${path}`,
   {
     headers: {
       "x-api-key": API_KEY
-    }
+    },
+    ...options
   }
 );
 
+type FetchCats = () => Promise<CatData>;
+export const fetchCats : FetchCats = () => 
+    catEndpoint("images").then(res=>res.json());
 
-// TODO: make type CatData
-export const fetchCats : () => Promise<Response> = () => catEndpoint("images/search?limit=10");
+type UploadCat = (localFile: File) => Promise<Response>;
+export const uploadCat: UploadCat = (localFile) => {
+  const body = new FormData();
+  body.append("file", localFile);
+  return catEndpoint("images/upload", {method: "POST", body});
+}

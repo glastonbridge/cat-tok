@@ -16,7 +16,7 @@ function CatImage(cat: CatDatum) {
 export default function ImageList() {
   const [catsData, setCatsData] = useState([]);
   useEffect(() => {
-    fetchCats().then((res) => res.json().then((json)=>setCatsData(json))); // todo: ugh
+    fetchCats().then(catsData =>setCatsData(catsData)); // todo: ugh
   },[]);
   
   return (
