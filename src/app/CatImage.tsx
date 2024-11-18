@@ -6,15 +6,16 @@ const clickFavourite = (catId: string) => () => favouriteCat(catId);
 
 const clickUnfavourite = (favouriteId: string) => () => unfavouriteCat(favouriteId);
 
-export default function CatImage(cat: CatDatum, myFavourite: string| null) {
+// FavouriteId, or null if this image was not favourited
+export default function CatImage(cat: CatDatum, myFavouriteId: string| null) {
   
   let favouriteClasses = styles.favouriteMe;
-  if (myFavourite) { // null is unfavourited
+  if (myFavouriteId) {
     favouriteClasses += ` ${styles.favourited}`;
   }
 
   // TODO: Refresh data on click
-  const buttonAction = myFavourite ? clickUnfavourite(myFavourite) : clickFavourite(cat.id);
+  const buttonAction = myFavouriteId ? clickUnfavourite(myFavouriteId) : clickFavourite(cat.id);
 
   return (
     <div key={cat.id} className={styles.catImageWrapper}>

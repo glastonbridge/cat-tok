@@ -1,0 +1,15 @@
+.dropzone {
+  border: 3px dashed gray;
+  margin: 2rem;
+  padding: 1rem;
+  height: 500px;
+}
+
+.error {
+  border: 1px solid darkred;
+  background-color: #FFDDDD;
+}
+.complete {
+  border: 1px solid darkgreen;
+  background-color: #DDFFDD;
+}

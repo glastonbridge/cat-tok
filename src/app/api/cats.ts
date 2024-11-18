@@ -29,7 +29,8 @@ const catEndpoint = (path: string, options = {}) => fetch(
 
 type FetchCats = () => Promise<CatData>;
 export const fetchCats : FetchCats = () => 
-    catEndpoint("images").then(res=>res.json());
+  //catEndpoint("images/search?limit=10").then(res=>res.json());
+  catEndpoint("images/?limit=10").then(res=>res.json());
 
 type FetchFavourites = () => Promise<FavouriteData>;
 export const fetchFavourites : FetchFavourites = () => 

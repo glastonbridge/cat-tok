@@ -1,24 +1,27 @@
 "use client"
 
 import styles from "./page.module.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CatData, FavouriteData, fetchCats, fetchFavourites } from "./api/cats";
 import CatImage from "./CatImage";
+import { UiStateContext } from "./ui-state-context";
 
 
 
-// TODO: show loading
 export default function ImageList() {
   const [catsData, setCatsData] = useState<CatData>([]);
-  const [favouritesData, setFavouritesData] = useState<FavouriteData>([]);
+  const [favouritesData, setFavouritesData] = useState<FavouriteData>({});
+  const {setErrorMessage, setBusy} = useContext(UiStateContext);
   useEffect(() => {
+    setBusy(true);
     fetchCats()
     .then(setCatsData)
     .then(fetchFavourites)
     .then(setFavouritesData)
-    .catch(() => {
-      // TODO: handle network error
-    });
+    .catch((e) => {
+      setErrorMessage("Network error");
+    })
+    .finally(() => setBusy(false));
   },[]);
   
   return (
